@@ -1,7 +1,7 @@
 {
   "domain": "physiofit_radar",
   "name": "PhysioFIT Auslastungsradar",
-  "version": "1.0.0",
+  "version": "v1.0.0",
   "documentation": "https://github.com/Schimi42/ha-physiofit-radar",
   "issue_tracker": "https://github.com/Schimi42/ha-physiofit-radar/issues",
   "dependencies": [],
