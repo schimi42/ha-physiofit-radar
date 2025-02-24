@@ -1,36 +1,36 @@
 {
     "config": {
         "step": {
-            "user": {
-                "description": "Öffnungszeiten für {day}",
+            "day": {
+                "description": "Öffnungszeiten für {day} (Schritt {current_step} von {total_steps})",
                 "title": "PhysioFIT Auslastungsradar - Öffnungszeiten",
                 "data": {
                     "monday_enabled": "Montag geöffnet",
-                    "monday_open": "Öffnungszeit Montag (HH:MM)",
-                    "monday_close": "Schließzeit Montag (HH:MM)",
+                    "monday_open": "Öffnungszeit (HH:MM)",
+                    "monday_close": "Schließzeit (HH:MM)",
                     "tuesday_enabled": "Dienstag geöffnet",
-                    "tuesday_open": "Öffnungszeit Dienstag (HH:MM)",
-                    "tuesday_close": "Schließzeit Dienstag (HH:MM)",
+                    "tuesday_open": "Öffnungszeit (HH:MM)",
+                    "tuesday_close": "Schließzeit (HH:MM)",
                     "wednesday_enabled": "Mittwoch geöffnet",
-                    "wednesday_open": "Öffnungszeit Mittwoch (HH:MM)",
-                    "wednesday_close": "Schließzeit Mittwoch (HH:MM)",
+                    "wednesday_open": "Öffnungszeit (HH:MM)",
+                    "wednesday_close": "Schließzeit (HH:MM)",
                     "thursday_enabled": "Donnerstag geöffnet",
-                    "thursday_open": "Öffnungszeit Donnerstag (HH:MM)",
-                    "thursday_close": "Schließzeit Donnerstag (HH:MM)",
+                    "thursday_open": "Öffnungszeit (HH:MM)",
+                    "thursday_close": "Schließzeit (HH:MM)",
                     "friday_enabled": "Freitag geöffnet",
-                    "friday_open": "Öffnungszeit Freitag (HH:MM)",
-                    "friday_close": "Schließzeit Freitag (HH:MM)",
+                    "friday_open": "Öffnungszeit (HH:MM)",
+                    "friday_close": "Schließzeit (HH:MM)",
                     "saturday_enabled": "Samstag geöffnet",
-                    "saturday_open": "Öffnungszeit Samstag (HH:MM)",
-                    "saturday_close": "Schließzeit Samstag (HH:MM)",
+                    "saturday_open": "Öffnungszeit (HH:MM)",
+                    "saturday_close": "Schließzeit (HH:MM)",
                     "sunday_enabled": "Sonntag geöffnet",
-                    "sunday_open": "Öffnungszeit Sonntag (HH:MM)",
-                    "sunday_close": "Schließzeit Sonntag (HH:MM)"
+                    "sunday_open": "Öffnungszeit (HH:MM)",
+                    "sunday_close": "Schließzeit (HH:MM)"
                 }
             }
         },
         "error": {
-            "time_format": "Ungültiges Zeitformat. Bitte HH:MM verwenden",
+            "time_format": "Ungültiges Zeitformat. Bitte HH:MM verwenden (00:00 - 23:59)",
             "unknown": "Unerwarteter Fehler"
         },
         "abort": {

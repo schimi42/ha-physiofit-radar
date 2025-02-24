@@ -4,13 +4,41 @@
             "user": {
                 "description": "Set up PhysioFIT Auslastungsradar to monitor gym utilization",
                 "title": "PhysioFIT Auslastungsradar"
+            },
+            "day": {
+                "description": "Opening hours for {day} (Step {current_step} of {total_steps})",
+                "title": "PhysioFIT Utilization Radar - Opening Hours",
+                "data": {
+                    "monday_enabled": "Monday enabled",
+                    "monday_open": "Opening time (HH:MM)",
+                    "monday_close": "Closing time (HH:MM)",
+                    "tuesday_enabled": "Tuesday enabled",
+                    "tuesday_open": "Opening time (HH:MM)",
+                    "tuesday_close": "Closing time (HH:MM)",
+                    "wednesday_enabled": "Wednesday enabled",
+                    "wednesday_open": "Opening time (HH:MM)",
+                    "wednesday_close": "Closing time (HH:MM)",
+                    "thursday_enabled": "Thursday enabled",
+                    "thursday_open": "Opening time (HH:MM)",
+                    "thursday_close": "Closing time (HH:MM)",
+                    "friday_enabled": "Friday enabled",
+                    "friday_open": "Opening time (HH:MM)",
+                    "friday_close": "Closing time (HH:MM)",
+                    "saturday_enabled": "Saturday enabled",
+                    "saturday_open": "Opening time (HH:MM)",
+                    "saturday_close": "Closing time (HH:MM)",
+                    "sunday_enabled": "Sunday enabled",
+                    "sunday_open": "Opening time (HH:MM)",
+                    "sunday_close": "Closing time (HH:MM)"
+                }
             }
+        },
+        "error": {
+            "time_format": "Invalid time format. Please use HH:MM (00:00 - 23:59)",
+            "unknown": "Unexpected error"
         },
         "abort": {
             "already_configured": "Device is already configured"
-        },
-        "error": {
-            "unknown": "Unexpected error"
         }
     }
 } 

@@ -21,24 +21,27 @@ DAYS = {
     "sunday": "Sonntag"
 }
 
+def get_schema_for_day(day: str) -> vol.Schema:
+    """Get schema for a specific day."""
+    return vol.Schema({
+        vol.Required(f"{day}_enabled", default=True): bool,
+        vol.Optional(f"{day}_open", default="08:00"): str,
+        vol.Optional(f"{day}_close", default="22:00"): str,
+    })
+
 def time_string_to_dict(time_str: str) -> dict:
     """Convert HH:MM time string to dict."""
     if not time_str:
         return {"hour": 0, "minute": 0}
     try:
         hour, minute = time_str.split(":")
-        return {"hour": int(hour), "minute": int(minute)}
+        hour_int = int(hour)
+        minute_int = int(minute)
+        if not (0 <= hour_int <= 23 and 0 <= minute_int <= 59):
+            raise ValueError
+        return {"hour": hour_int, "minute": minute_int}
     except ValueError:
-        return {"hour": 0, "minute": 0}
-
-for day in DAYS:
-    STEP_USER_DATA_SCHEMA = vol.Schema(
-        {
-            vol.Optional(f"{day}_enabled", default=True): bool,
-            vol.Optional(f"{day}_open", default="08:00"): str,
-            vol.Optional(f"{day}_close", default="22:00"): str,
-        }
-    )
+        raise ValueError("Invalid time format")
 
 class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     """Handle a config flow for PhysioFIT Auslastungsradar."""
@@ -48,7 +51,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     def __init__(self):
         """Initialize the config flow."""
         self._data = {}
-        self._current_step = 0
+        self._current_day_index = 0
 
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None
@@ -58,34 +61,56 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         await self.async_set_unique_id(DOMAIN)
         self._abort_if_unique_id_configured()
 
-        if user_input is None:
-            return self.async_show_form(
-                step_id="user",
-                data_schema=STEP_USER_DATA_SCHEMA,
-                description_placeholders={"day": DAYS[list(DAYS.keys())[self._current_step]]}
-            )
+        return await self.async_step_day()
 
+    async def async_step_day(
+        self, user_input: dict[str, Any] | None = None
+    ) -> FlowResult:
+        """Handle day configuration."""
         errors = {}
-
-        # Validate time format
-        for day in DAYS:
-            if user_input.get(f"{day}_enabled"):
-                try:
-                    time_string_to_dict(user_input[f"{day}_open"])
-                    time_string_to_dict(user_input[f"{day}_close"])
-                except ValueError:
-                    errors[f"{day}_open"] = "time_format"
-                    errors[f"{day}_close"] = "time_format"
-
-        if errors:
-            return self.async_show_form(
-                step_id="user",
-                data_schema=STEP_USER_DATA_SCHEMA,
-                errors=errors,
-                description_placeholders={"day": DAYS[list(DAYS.keys())[self._current_step]]}
+        
+        if self._current_day_index >= len(DAYS):
+            # All days configured, create the entry
+            return self.async_create_entry(
+                title="PhysioFIT Auslastungsradar",
+                data=self._data
             )
 
-        return self.async_create_entry(
-            title="PhysioFIT Auslastungsradar",
-            data=user_input
+        current_day = list(DAYS.keys())[self._current_day_index]
+        
+        if user_input is not None:
+            try:
+                if user_input[f"{current_day}_enabled"]:
+                    # Validate time format
+                    time_string_to_dict(user_input[f"{current_day}_open"])
+                    time_string_to_dict(user_input[f"{current_day}_close"])
+                
+                # Store the data
+                self._data.update(user_input)
+                
+                # Move to next day
+                self._current_day_index += 1
+                
+                # If we have more days, show the next form
+                if self._current_day_index < len(DAYS):
+                    return await self.async_step_day()
+                
+                # All days configured, create the entry
+                return self.async_create_entry(
+                    title="PhysioFIT Auslastungsradar",
+                    data=self._data
+                )
+                
+            except ValueError:
+                errors["base"] = "time_format"
+
+        return self.async_show_form(
+            step_id="day",
+            data_schema=get_schema_for_day(current_day),
+            errors=errors,
+            description_placeholders={
+                "day": DAYS[current_day],
+                "current_step": str(self._current_day_index + 1),
+                "total_steps": str(len(DAYS))
+            }
         ) 
