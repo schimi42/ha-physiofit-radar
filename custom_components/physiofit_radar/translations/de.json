@@ -1,0 +1,16 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "description": "Richte PhysioFIT Auslastungsradar ein, um die Studiobelegung zu überwachen",
+                "title": "PhysioFIT Auslastungsradar"
+            }
+        },
+        "abort": {
+            "already_configured": "Gerät ist bereits konfiguriert"
+        },
+        "error": {
+            "unknown": "Unerwarteter Fehler"
+        }
+    }
+} 
