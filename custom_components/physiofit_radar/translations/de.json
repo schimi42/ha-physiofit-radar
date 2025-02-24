@@ -2,15 +2,39 @@
     "config": {
         "step": {
             "user": {
-                "description": "Richte PhysioFIT Auslastungsradar ein, um die Studiobelegung zu überwachen",
-                "title": "PhysioFIT Auslastungsradar"
+                "description": "Öffnungszeiten für {day}",
+                "title": "PhysioFIT Auslastungsradar - Öffnungszeiten",
+                "data": {
+                    "monday_enabled": "Montag geöffnet",
+                    "monday_open": "Öffnungszeit Montag (HH:MM)",
+                    "monday_close": "Schließzeit Montag (HH:MM)",
+                    "tuesday_enabled": "Dienstag geöffnet",
+                    "tuesday_open": "Öffnungszeit Dienstag (HH:MM)",
+                    "tuesday_close": "Schließzeit Dienstag (HH:MM)",
+                    "wednesday_enabled": "Mittwoch geöffnet",
+                    "wednesday_open": "Öffnungszeit Mittwoch (HH:MM)",
+                    "wednesday_close": "Schließzeit Mittwoch (HH:MM)",
+                    "thursday_enabled": "Donnerstag geöffnet",
+                    "thursday_open": "Öffnungszeit Donnerstag (HH:MM)",
+                    "thursday_close": "Schließzeit Donnerstag (HH:MM)",
+                    "friday_enabled": "Freitag geöffnet",
+                    "friday_open": "Öffnungszeit Freitag (HH:MM)",
+                    "friday_close": "Schließzeit Freitag (HH:MM)",
+                    "saturday_enabled": "Samstag geöffnet",
+                    "saturday_open": "Öffnungszeit Samstag (HH:MM)",
+                    "saturday_close": "Schließzeit Samstag (HH:MM)",
+                    "sunday_enabled": "Sonntag geöffnet",
+                    "sunday_open": "Öffnungszeit Sonntag (HH:MM)",
+                    "sunday_close": "Schließzeit Sonntag (HH:MM)"
+                }
             }
+        },
+        "error": {
+            "time_format": "Ungültiges Zeitformat. Bitte HH:MM verwenden",
+            "unknown": "Unerwarteter Fehler"
         },
         "abort": {
             "already_configured": "Gerät ist bereits konfiguriert"
-        },
-        "error": {
-            "unknown": "Unerwarteter Fehler"
         }
     }
 } 
