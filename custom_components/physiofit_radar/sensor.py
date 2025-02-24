@@ -6,32 +6,34 @@ import aiohttp
 from bs4 import BeautifulSoup
 
 from homeassistant.components.sensor import SensorEntity
+from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant.helpers.typing import ConfigType
 from homeassistant.const import PERCENTAGE
+
+from . import DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
 SCAN_INTERVAL = timedelta(minutes=5)
 URL = "https://portal.aidoo-online.de/workload?mandant=201000113_physiofit_peine&stud_nr=1"
 
-async def async_setup_platform(
+async def async_setup_entry(
     hass: HomeAssistant,
-    config: ConfigType,
+    config_entry: ConfigEntry,
     async_add_entities: AddEntitiesCallback,
-    discovery_info=None,
 ) -> None:
-    """Set up the PhysioFIT sensor."""
-    async_add_entities([PhysioFITSensor()], True)
+    """Set up the PhysioFIT sensor from config entry."""
+    async_add_entities([PhysioFITSensor(config_entry)], True)
 
 class PhysioFITSensor(SensorEntity):
     """Representation of a PhysioFIT utilization sensor."""
 
-    def __init__(self):
+    def __init__(self, config_entry: ConfigEntry):
         """Initialize the sensor."""
+        self._config_entry = config_entry
         self._attr_name = "PhysioFIT Auslastung"
         self._attr_native_unit_of_measurement = PERCENTAGE
-        self._attr_unique_id = "physiofit_peine_utilization"
+        self._attr_unique_id = f"{DOMAIN}_{config_entry.entry_id}"
         self._attr_native_value = None
 
     async def async_update(self):
