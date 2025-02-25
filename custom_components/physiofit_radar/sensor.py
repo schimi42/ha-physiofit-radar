@@ -47,13 +47,7 @@ class PhysioFITSensor(SensorEntity):
         self._attr_unique_id = f"{DOMAIN}_{config_entry.entry_id}"
         self._attr_native_value = 0  # Initialize with 0
         self._attr_available = True   # Always available
-        
-        # Use the icon from the brand directory
-        self._attr_icon = "mdi:dumbbell"  # Fallback icon
-        current_dir = os.path.dirname(os.path.realpath(__file__))
-        icon_path = os.path.join(current_dir, "brand", "icon.jpg")
-        if os.path.exists(icon_path):
-            self._attr_entity_picture = f"/local/custom_components/{DOMAIN}/brand/icon.jpg"
+        self._attr_icon = "mdi:dumbbell"  # Use MDI icon
 
     def _is_open(self) -> bool:
         """Check if the gym is currently open."""
